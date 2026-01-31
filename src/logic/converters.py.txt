@@ -1,0 +1,21 @@
+class UniversalConverter:
+    DATA = {
+        "Lungime": {"mm": 0.001, "cm": 0.01, "m": 1.0, "km": 1000.0, "inch": 0.0254, "foot": 0.3048, "mile": 1609.34},
+        "Greutate": {"g": 1.0, "kg": 1000.0, "lb": 453.592, "oz": 28.3495, "ton": 1000000.0},
+        "Viteză": {"m/s": 1.0, "km/h": 0.277778, "mph": 0.44704},
+        "Volum": {"ml": 0.001, "l": 1.0, "gallon": 3.78541, "cup": 0.24}
+    }
+    @staticmethod
+    def convert_standard(value, unit_from, unit_to, category):
+        factors = UniversalConverter.DATA[category]
+        return (value * factors[unit_from]) / factors[unit_to]
+
+    @staticmethod
+    def convert_temperature(value, unit_from, unit_to):
+        if unit_from == unit_to: return value
+        temp_c = value
+        if unit_from == "F": temp_c = (value - 32) * 5/9
+        elif unit_from == "K": temp_c = value - 273.15
+        if unit_to == "C": return temp_c
+        if unit_to == "F": return (temp_c * 9/5) + 32
+        if unit_to == "K": return temp_c + 273.15
